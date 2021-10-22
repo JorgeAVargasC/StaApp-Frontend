@@ -1,186 +1,217 @@
 <template>
-  <div id="app" class="app">
+	<div id="app" class="app">
+		<div class="header">
+			<h1>Banco Mision TIC</h1>
+			<nav>
+				<button class="btn btn-primary" v-if="is_auth" v-on:click="loadHome">Inicio</button>
+				<button class="btn btn-primary" v-if="is_auth" v-on:click="loadVuelo">Vuelo</button>
+				<button class="btn btn-primary" v-if="is_auth" v-on:click="logOut">
+					Cerrar Sesión
+				</button>
+				<button class="btn btn-primary" v-if="!is_auth" v-on:click="loadLogIn">
+					Iniciar Sesión
+				</button>
+				<button class="btn btn-primary" v-if="!is_auth" v-on:click="loadSignUp">
+					Registrarse
+				</button>
+			</nav>
+		</div>
 
-    <div class="header">
+		<div class="main-component">
+			<router-view
+				v-on:completedLogIn="completedLogIn"
+				v-on:completedSignUp="completedSignUp"
+				v-on:logOut="logOut"
+			>
+			</router-view>
+		</div>
 
-      <h1> Banco Mision TIC </h1>
-      <nav>
-        <button v-if="is_auth" v-on:click="loadHome"> Inicio </button>
-        <button v-if="is_auth" v-on:click="loadVuelo"> Vuelo </button>
-        <button v-if="is_auth" v-on:click="logOut"> Cerrar Sesión </button>
-        <button v-if="!is_auth" v-on:click="loadLogIn" > Iniciar Sesión </button>
-        <button v-if="!is_auth" v-on:click="loadSignUp" > Registrarse </button>
-      </nav>
-    </div>
-    
-
-    <div class="main-component">
-      <router-view  
-        v-on:completedLogIn="completedLogIn"
-        v-on:completedSignUp="completedSignUp"
-        v-on:logOut="logOut"
-      >
-      </router-view>
-    </div>
-    
-
-    <div class="footer">
-      <h2>Misión TIC 2022</h2>
-    </div>
-
-  </div>
+		<div class="footer">
+			<h2>Misión TIC 2022</h2>
+			<p>Todos los derechos reservado &copy; stAPP</p>
+		</div>
+	</div>
 </template>
-
-
-
 
 <script>
 export default {
-  name: 'App',
+	name: "App",
 
-  data: function(){
-      return{
-        is_auth: false
-      }
-  },
+	data: function() {
+		return {
+			is_auth: false,
+		};
+	},
 
-  components: {
-  },
+	components: {},
 
-  methods:{
-    verifyAuth: function() {
-      this.is_auth = localStorage.getItem("isAuth") || false;
-		
-			if (this.is_auth == false)
-        this.$router.push({ name: "logIn" });
-      else
-        this.$router.push({ name: "home" });
-    },
+	methods: {
+		verifyAuth: function() {
+			this.is_auth = localStorage.getItem("isAuth") || false;
 
-    loadLogIn: function(){
-      this.$router.push({name: "logIn"})
-    },
+			if (this.is_auth == false) this.$router.push({ name: "logIn" });
+			else this.$router.push({ name: "home" });
+		},
 
-    loadSignUp: function(){
-      this.$router.push({name: "signUp"})
-    },
+		loadLogIn: function() {
+			this.$router.push({ name: "logIn" });
+		},
 
-    completedLogIn: function(data) {
+		loadSignUp: function() {
+			this.$router.push({ name: "signUp" });
+		},
+
+		completedLogIn: function(data) {
 			localStorage.setItem("isAuth", true);
 			localStorage.setItem("username", data.username);
 			localStorage.setItem("token_access", data.token_access);
 			localStorage.setItem("token_refresh", data.token_refresh);
 			alert("Autenticación Exitosa");
 			this.verifyAuth();
-    },
+		},
 
-    completedSignUp: function(data) {
+		completedSignUp: function(data) {
 			alert("Registro Exitoso");
 			this.completedLogIn(data);
-    },
+		},
 
-    loadHome: function() {
-      this.$router.push({ name: "home" });
-    },
+		loadHome: function() {
+			this.$router.push({ name: "home" });
+		},
 
-    loadVuelo: function () {
+		loadVuelo: function() {
 			this.$router.push({ name: "vuelo" });
 		},
 
-    logOut: function () {
+		logOut: function() {
 			localStorage.clear();
 			alert("Sesión Cerrada");
 			this.verifyAuth();
 		},
-  },
+	},
 
-  created: function(){
-    this.verifyAuth()
-  }
-
-}
+	created: function() {
+		this.verifyAuth();
+	},
+};
 </script>
 
 <style>
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&display=swap");
 
-  body{
-    margin: 0 0 0 0;
-  }
+:root {
+	--primary: #3c2d71;
+	--secondary: #5842a8;
+	--gray-1: #d8d8d8;
+	--gray-2: #adadad;
+	--primary-font: "Roboto", sans-serif;
+}
 
-  .header{
-    margin: 0%;
-    padding: 0;
-    width: 100%;
-    height: 10vh; 
-    min-height: 100px;
+*,
+*:before,
+*:after {
+	margin: 0;
+	padding: 0;
+	box-sizing: inherit;
+}
 
-    background-color: #283747 ;
-    color:#E5E7E9  ;
+body {
+	background-color: var(--gray-1);
+	font-family: var(--primary-font);
+	color: #ffffff;
+}
 
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
+.app {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-between;
+	height: 45rem;
+  min-height: 100vh;
+	background-image: url("./assets/avion.jpg");
+	background-position-y: center;
+	background-position-x: 35%;
+	background-size: cover;
+	background-repeat: no-repeat;
+}
 
-  .header h1{
-    width: 20%;
-    text-align: center;
-  }
+/* Herramientas Reutilizables */
 
-  .header nav {
-    height: 100%;
-    width: 20%;
+.btn {
+	text-decoration: none;
+	text-align: center;
+	padding: 0.8rem;
+	border-radius: 0.4rem;
+	text-transform: capitalize;
+	border: none;
+}
 
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
+.btn-primary {
+	color: white;
+	background-color: var(--primary);
+}
 
-    font-size: 20px;
-  }
+.btn-secondary{
+  color: white;
+	background-color: var(--secondary);
+}
 
-  .header nav button{
-    color: #E5E7E9;
-    background: #283747;
-    border: 1px solid #E5E7E9;
+.form-input {
+	border: none;
+	background-color: white;
+	border-radius: 0.4rem;
+	padding: 0.8rem;
+	color: var(--secondary);
+	outline: none;
+	transition-duration: 0.25s;
+}
 
-    border-radius: 5px;
-    padding: 10px 20px;
-  }
+.form-input::placeholder{
+  color: var(--gray-2);
+}
 
-  .header nav button:hover{
-    color: #283747;
-    background: #E5E7E9;
-    border: 1px solid #E5E7E9;
-  }
+/* App */
 
-  
-  .main-component{
-    height: 75vh;
-    margin: 0%;
-    padding: 0%;
+.header {
+	width: 100%;
+	background-color: var(--primary);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
 
-    background: #FDFEFE ;
-  }
+.header h1 {
+	margin-top: 1rem;
+	margin-bottom: 1rem;
+}
 
- 
-  .footer{
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    height: 10vh;
-    min-height: 100px; 
+.header nav {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
 
-    background-color: #283747;
-    color: #E5E7E9;
+.header nav button {
+	margin-bottom: 1rem;
+	border: 0.1rem solid white;
+}
 
-  }
+.footer {
+	display: flex;
+	justify-content: space-between;
+	flex-direction: column;
+	background-color: var(--primary);
+	align-items: center;
+	width: 100%;
+}
 
-  .footer h2{
-    width: 100%;
-    height: 100%;
-    
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+.footer h2 {
+	margin-top: 1rem;
+	margin-bottom: 1rem;
+}
+
+.footer p {
+	margin-bottom: 1rem;
+	font-weight: 100;
+}
 </style>
