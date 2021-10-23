@@ -28,7 +28,7 @@
 
 		<div class="footer">
 			<h2>Misión TIC 2022</h2>
-			<p>Todos los derechos reservado &copy; stAPP</p>
+			<p>Todos los derechos reservados &copy; STA</p>
 		</div>
 	</div>
 </template>
