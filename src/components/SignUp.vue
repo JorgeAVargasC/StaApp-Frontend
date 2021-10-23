@@ -70,7 +70,6 @@ export default {
     background-color: rgba(0, 0, 0, 0.397);
     border-radius: 0.4rem;
     width: 18rem;
-    height: auto;
 }
 
 .container_signUp_user {
@@ -99,10 +98,12 @@ export default {
 
 .container_signUp_user form input{
     margin-bottom: 1rem;
+	width: 100%;
 }
 
 .container_signUp_user form button{
     margin-bottom: 1rem;
+	width: 60%;
 }
 
 </style>
