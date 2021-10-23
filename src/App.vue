@@ -1,7 +1,7 @@
 <template>
 	<div id="app" class="app">
 		<div class="header">
-			<h1>Banco Mision TIC</h1>
+			<h1>STA Misión TIC</h1>
 			<nav>
 				<button class="btn btn-primary" v-if="is_auth" v-on:click="loadHome">Inicio</button>
 				<button class="btn btn-primary" v-if="is_auth" v-on:click="loadVuelo">Vuelo</button>
@@ -126,8 +126,8 @@ body {
 	flex-direction: column;
 	align-items: center;
 	justify-content: space-between;
-	height: 45rem;
-  min-height: 100vh;
+	height: 30rem;
+	min-height: 100vh;
 	background-image: url("./assets/avion.jpg");
 	background-position-y: center;
 	background-position-x: 35%;
@@ -151,8 +151,8 @@ body {
 	background-color: var(--primary);
 }
 
-.btn-secondary{
-  color: white;
+.btn-secondary {
+	color: white;
 	background-color: var(--secondary);
 }
 
@@ -166,8 +166,8 @@ body {
 	transition-duration: 0.25s;
 }
 
-.form-input::placeholder{
-  color: var(--gray-2);
+.form-input::placeholder {
+	color: var(--gray-2);
 }
 
 /* App */
@@ -213,5 +213,39 @@ body {
 .footer p {
 	margin-bottom: 1rem;
 	font-weight: 100;
+}
+
+/* Vista Laptops y Tablets */
+@media (min-width: 1024px) {
+	.header {
+		flex-direction: row;
+		justify-content: space-between;
+	}
+
+	.header h1{
+		margin-left: 1rem;
+	}
+
+	.header nav{
+		flex-direction: row;
+	}
+
+	.header nav button{
+		margin: 0;
+		margin-right: 1rem;
+	}
+
+	.footer{
+		flex-direction: row;
+	}
+
+	.footer h2{
+		margin-left: 1rem;
+	}
+
+	.footer p{
+		margin: 0;
+		margin-right: 1rem;
+	}
 }
 </style>

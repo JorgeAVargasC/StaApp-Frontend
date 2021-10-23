@@ -53,7 +53,7 @@ export default {
 .logIn_user {
     background-color: rgba(0, 0, 0, 0.397);
     border-radius: 0.4rem;
-    width: 20rem;
+    width: 18rem;
     height: auto;
 }
 

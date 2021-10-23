@@ -4,22 +4,12 @@
 			<h2>Registrarse</h2>
 
 			<form v-on:submit.prevent="processSignUp">
-				<input type="text" v-model="user.username" placeholder="Username" />
-				<br />
-
-				<input type="password" v-model="user.password" placeholder="Password" />
-				<br />
-
-				<input type="text" v-model="user.name" placeholder="Name" />
-				<br />
-
-				<input type="email" v-model="user.email" placeholder="Email" />
-				<br />
-
-				<input type="number" v-model="user.vuelo.cantidadPasajeros" placeholder="Cantidad de Pasajeros" />
-				<br />
-
-				<button type="submit">Registrarse</button>
+				<input class="form-input" type="text" v-model="user.username" placeholder="Username" />
+				<input class="form-input" type="password" v-model="user.password" placeholder="Password" />
+				<input class="form-input" type="text" v-model="user.name" placeholder="Name" />
+				<input class="form-input" type="email" v-model="user.email" placeholder="Email" />
+				<input class="form-input" type="number" v-model="user.vuelo.cantidadPasajeros" placeholder="Cantidad de Pasajeros" />
+				<button class="btn btn-secondary" type="submit">Registrarse</button>
 			</form>
 		</div>
 	</div>
@@ -75,64 +65,44 @@ export default {
 </script>
 
 <style>
-.signUp_user {
-	margin: 0;
-	padding: 0%;
-	height: 100%;
-	width: 100%;
 
-	display: flex;
-	justify-content: center;
-	align-items: center;
+.signUp_user {
+    background-color: rgba(0, 0, 0, 0.397);
+    border-radius: 0.4rem;
+    width: 18rem;
+    height: auto;
 }
 
 .container_signUp_user {
-	border: 3px solid #283747;
-	border-radius: 10px;
-	width: 25%;
-	height: 60%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
 
+.container_signUp_user .icon-plane{
+    margin-top: 1rem;
+    width: 5.5rem;
+    height: auto;
+}
+
+.container_signUp_user h2{
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.container_signUp_user form {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 }
 
-.signUp_user h2 {
-	color: #283747;
+.container_signUp_user form input{
+    margin-bottom: 1rem;
 }
 
-.signUp_user form {
-	width: 70%;
+.container_signUp_user form button{
+    margin-bottom: 1rem;
 }
 
-.signUp_user input {
-	height: 40px;
-	width: 100%;
-
-	box-sizing: border-box;
-	padding: 10px 20px;
-	margin: 5px 0;
-
-	border: 1px solid #283747;
-}
-
-.signUp_user button {
-	width: 100%;
-	height: 40px;
-
-	color: #e5e7e9;
-	background: #283747;
-	border: 1px solid #e5e7e9;
-
-	border-radius: 5px;
-	padding: 10px 25px;
-	margin: 5px 0 25px 0;
-}
-
-.signUp_user button:hover {
-	color: #e5e7e9;
-	background: crimson;
-	border: 1px solid #283747;
-}
 </style>
