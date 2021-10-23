@@ -36,7 +36,7 @@ export default {
 					fechaLlegada: "2021-12-05",
 					horaSalida: "14:00:00",
 					horaLlegada: "15:00:00",
-					cantidadPasajeros: 0,
+					cantidadPasajeros: "",
 				},
 			},
 		};
@@ -70,6 +70,8 @@ export default {
     background-color: rgba(0, 0, 0, 0.397);
     border-radius: 0.4rem;
     width: 18rem;
+	margin-top: 2rem;
+	margin-bottom: 2rem;
 }
 
 .container_signUp_user {

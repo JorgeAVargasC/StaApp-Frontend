@@ -54,6 +54,8 @@ export default {
     background-color: rgba(0, 0, 0, 0.397);
 	width: 18rem;
     border-radius: 0.4rem;
+	margin-top: 2rem;
+	margin-bottom: 2rem;
 	
 }
 

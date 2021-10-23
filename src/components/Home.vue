@@ -23,24 +23,10 @@ export default {
 
 
 <style>
+
     .greetings{
-        margin: 0;
-        padding: 0%;
-        height: 100%;
-        width: 100%;
-    
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .greetings h1{
-        font-size: 50px;
-        color: #283747;
-    }
-
-    .greetings span{
-        color: crimson;
-        font-weight: bold;
+        background-color: rgba(0, 0, 0, 0.397);
+        padding: 1.5rem 1.6rem;
+        border-radius: 0.4rem;
     }
 </style>
