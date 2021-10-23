@@ -3,15 +3,15 @@
 		<div class="header">
 			<h1>STA Misión TIC</h1>
 			<nav>
-				<button class="btn btn-primary" v-if="is_auth" v-on:click="loadHome">Inicio</button>
-				<button class="btn btn-primary" v-if="is_auth" v-on:click="loadVuelo">Vuelo</button>
-				<button class="btn btn-primary" v-if="is_auth" v-on:click="logOut">
+				<button class="btn btn-secondary" v-if="is_auth" v-on:click="loadHome">Inicio</button>
+				<button class="btn btn-secondary" v-if="is_auth" v-on:click="loadVuelo">Vuelo</button>
+				<button class="btn btn-secondary" v-if="is_auth" v-on:click="logOut">
 					Cerrar Sesión
 				</button>
-				<button class="btn btn-primary" v-if="!is_auth" v-on:click="loadLogIn">
+				<button class="btn btn-secondary" v-if="!is_auth" v-on:click="loadLogIn">
 					Iniciar Sesión
 				</button>
-				<button class="btn btn-primary" v-if="!is_auth" v-on:click="loadSignUp">
+				<button class="btn btn-secondary" v-if="!is_auth" v-on:click="loadSignUp">
 					Registrarse
 				</button>
 			</nav>
@@ -101,7 +101,7 @@ export default {
 
 :root {
 	--primary: #3c2d71;
-	--secondary: #5842a8;
+	--secondary: #4c3991;
 	--gray-1: #d8d8d8;
 	--gray-2: #adadad;
 	--primary-font: "Roboto", sans-serif;
@@ -144,6 +144,13 @@ body {
 	border-radius: 0.4rem;
 	text-transform: capitalize;
 	border: none;
+	transition-duration: 0.3s;
+}
+
+.btn:hover{
+	cursor: pointer;
+	filter: brightness(1.1);
+	transition-duration: 0.3s;
 }
 
 .btn-primary {
@@ -193,7 +200,6 @@ body {
 
 .header nav button {
 	margin-bottom: 1rem;
-	border: 0.1rem solid white;
 }
 
 .footer {
