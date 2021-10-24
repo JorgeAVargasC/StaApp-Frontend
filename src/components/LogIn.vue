@@ -1,4 +1,5 @@
 <template>
+
 	<div class="logIn_user">
 		<div class="container_logIn_user">
             <font-awesome-icon class="icon-plane" icon='plane'/>

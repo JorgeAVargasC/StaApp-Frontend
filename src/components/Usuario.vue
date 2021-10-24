@@ -1,28 +1,11 @@
 <template>
 	<div v-if="loaded" class="information">
 		<table class="display" id="datatable">
-			<thead>
-				<tr>
-					<th>Id</th>
-					<th>Pasajeros</th>
-					<th>Origen</th>
-					<th>Destino</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr v-for="dato in datosVuelos" :key="dato.id">
-					<td>{{ dato.id_vuelo }}</td>
-					<td>{{ dato.cantidadPasajeros }}</td>
-					<td>{{ dato.origen }}</td>
-					<td>{{ dato.destino }}</td>
-				</tr>
-			</tbody>
-		</table>
-		<!-- <h1>Información del vuelo creado</h1>
-        <h2>Nombre: <span>{{name}}</span></h2>
-        <h2>Cantidad Pasajeros: <span>{{cantidadPasajeros}} Pasajeros </span></h2>
-        <h2>Correo electrónico: <span>{{email}}</span></h2> -->
-	</div>
+			<h1>Información de su cuenta</h1>
+			<h2>Nombre: <span>{{name}}</span></h2>
+			<h2>Usuario: <span>{{username}} </span></h2>
+			<h2>Correo electrónico: <span>{{email}}</span></h2>
+			</div>
 </template>
 
 <script>
@@ -35,15 +18,14 @@ import axios from "axios";
 import $ from "jquery";
 
 export default {
-	name: "Vuelo",
+	name: "Usuario",
 
 	data: function() {
 		return {
-			// name: "",
-			// email: "",
-			// cantidadPasajeros: 0,
+			name: "",
+			email: "",
+			username: "",
 			loaded: false,
-			datosVuelos: [],
 		};
 	},
 
@@ -89,11 +71,8 @@ export default {
 							search: "Buscar: ",
 						},
 					});
-					this.datosVuelos = result.data;
-					console.log(this.datosVuelos);
-					// this.name = result.data.name;
-					// this.email = result.data.email;
-					// this.cantidadPasajeros = result.data.vuelo.cantidadPasajeros;
+					this.datosUsuarios = result.data;
+					console.log(this.datosUsuarios);
 					this.loaded = true;
 				})
 				.catch(() => {

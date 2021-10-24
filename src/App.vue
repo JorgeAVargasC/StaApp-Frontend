@@ -5,6 +5,7 @@
 			<nav>
 				<button class="btn btn-secondary" v-if="is_auth" v-on:click="loadHome">Inicio</button>
 				<button class="btn btn-secondary" v-if="is_auth" v-on:click="loadVuelo">Vuelo</button>
+				<button class="btn btn-secondary" v-if="is_auth" v-on:click="loadUsuario">Usuario</button>
 				<button class="btn btn-secondary" v-if="is_auth" v-on:click="logOut">
 					Cerrar Sesión
 				</button>
@@ -14,6 +15,8 @@
 				<button class="btn btn-secondary" v-if="!is_auth" v-on:click="loadSignUp">
 					Registrarse
 				</button>
+				
+				
 			</nav>
 		</div>
 
@@ -81,6 +84,10 @@ export default {
 
 		loadVuelo: function() {
 			this.$router.push({ name: "vuelo" });
+		},
+
+		loadUsuario: function() {
+			this.$router.push({ name: "usuario" });
 		},
 
 		logOut: function() {
