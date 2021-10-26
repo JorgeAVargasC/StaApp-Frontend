@@ -41,10 +41,10 @@ export default {
 
 	data: function() {
 		return {
-			id_vuelo: "",
-			origen: "",
-			destino: "",
-			cantidadPasajeros: 0,
+			id: "",
+			name: "",
+			username: "",
+			email: "",
 			loaded: false,
 			// datosVuelos: [],
 		};
@@ -74,10 +74,10 @@ export default {
 					// this.datosVuelos = JSON.parse(JSON.stringify(result.data));
 					// console.table(this.datosVuelos);
 					console.log(result.data)
-					this.id_vuelo = result.data.vuelo.id_vuelo;
-					this.origen = result.data.vuelo.origen;
-					this.destino = result.data.vuelo.destino;
-					this.cantidadPasajeros = result.data.vuelo.cantidadPasajeros;
+					this.id = result.data.id;
+					this.name = result.data.name;
+					this.username = result.data.username;
+					this.email = result.data.email;
 					this.loaded = true;
 				})
 				.catch(() => {
