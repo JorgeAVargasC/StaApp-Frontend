@@ -5,7 +5,7 @@ import LogIn from './components/LogIn.vue'
 import SignUp from './components/SignUp.vue'
 import Home from './components/Home.vue'
 import Vuelo from './components/Vuelo.vue'
-import Usuario from '.components/Usuario.vue'
+//import Usuario from '.components/Usuario.vue'
 
 
 const routes = [{
@@ -36,7 +36,7 @@ const routes = [{
     {
         path: '/user/usuario',
         name: "usuario",
-        component: Usuario
+        component: Usuario,
     }
 ];
 
