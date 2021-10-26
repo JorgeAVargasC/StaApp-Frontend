@@ -1,20 +1,26 @@
 <template>
-	<div v-if="loaded" class="information">
+	<div v-if="loaded" class="tabla-vuelos">
 		<table class="display" id="datatable">
 			<thead>
 				<tr>
-					<th>ID</th>
-					<th>Pasajeros</th>
+					<th>ID</th>					
 					<th>Origen</th>
 					<th>Destino</th>
+					<th>Pasajeros</th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr v-for="dato in datosVuelos" :key="dato.id">
+				<!-- <tr v-for="dato in datosVuelos" :key="dato.id">
 					<td>{{ dato.id_vuelo }}</td>
 					<td>{{ dato.cantidadPasajeros }}</td>
 					<td>{{ dato.origen }}</td>
 					<td>{{ dato.destino }}</td>
+				</tr> -->
+				<tr>
+					<td>{{id_vuelo}}</td>
+					<td>{{origen}}</td>
+					<td>{{destino}}</td>
+					<td>{{cantidadPasajeros}}</td>
 				</tr>
 			</tbody>
 		</table>
@@ -27,10 +33,6 @@
 
 <script>
 import jwt_decode from "jwt-decode";
-import "jquery/dist/jquery.min.js";
-import "datatables.net";
-import "datatables.net-dt/js/dataTables.dataTables";
-import "datatables.net-dt/css/jquery.dataTables.min.css";
 import axios from "axios";
 import $ from "jquery";
 
@@ -39,11 +41,12 @@ export default {
 
 	data: function() {
 		return {
-			// name: "",
-			// email: "",
-			// cantidadPasajeros: 0,
+			id_vuelo: "",
+			origen: "",
+			destino: "",
+			cantidadPasajeros: 0,
 			loaded: false,
-			datosVuelos: [],
+			// datosVuelos: [],
 		};
 	},
 
@@ -67,33 +70,14 @@ export default {
 					headers: { Authorization: `Bearer ${token}` },
 				})
 				.then((result) => {
-					$("#datatable").DataTable({
-						"paging": true,
-						pageLength: 10,
-						lengthChange: false,
-						searching: true,
-						ordering: true,
-						info: true,
-						autoWidth: false,
-						responsive: true,
-						Language: {
-							paginate: {
-								next: "Siguiente",
-								previous: "Anterior",
-								last: "Ultimo",
-								first: "Primero",
-							},
-							info: "Mostrando _START_a_END_de_TOTAL_ resultados",
-							emptyTable: "No hay registros",
-							infoEmpty: "0 registros",
-							search: "Buscar: ",
-						},
-					});
-					this.datosVuelos = result.data;
-					console.log(this.datosVuelos);
-					// this.name = result.data.name;
-					// this.email = result.data.email;
-					// this.cantidadPasajeros = result.data.vuelo.cantidadPasajeros;
+					
+					// this.datosVuelos = JSON.parse(JSON.stringify(result.data));
+					// console.table(this.datosVuelos);
+					console.log(result.data)
+					this.id_vuelo = result.data.vuelo.id_vuelo;
+					this.origen = result.data.vuelo.origen;
+					this.destino = result.data.vuelo.destino;
+					this.cantidadPasajeros = result.data.vuelo.cantidadPasajeros;
 					this.loaded = true;
 				})
 				.catch(() => {
@@ -123,4 +107,60 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.tabla-vuelos {
+	margin-top: 2rem;
+	margin-bottom: 2rem;
+	width: 20rem;
+}
+
+table{
+	border-spacing: 1;
+	border-collapse: collapse;
+	background: white;
+	border-radius: 0.4rem;
+	overflow: hidden;
+	width: 100%;
+	margin: 0 auto;
+}
+
+table thead tr{
+	background-color: var(--primary);
+	height: 3rem;
+}
+
+table tbody tr{
+	color: #808080;
+	height: 3rem;
+}
+
+table tbody tr:nth-of-type(even){
+	background-color: var(--gray-1);
+	
+}
+
+table tr th, table tr td{
+	width: 25%;
+	text-align: center;
+}
+
+table tr th{
+	padding-left: 1rem;
+}
+
+table tr td{
+	padding-left: 1rem;
+}
+
+table tr th:last-of-type{
+	padding-right: 1rem;
+}
+
+table tr td:last-of-type{
+	padding-right: 1rem;
+}
+
+
+
+
+</style>
