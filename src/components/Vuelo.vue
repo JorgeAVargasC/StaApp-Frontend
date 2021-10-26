@@ -3,8 +3,7 @@
 		<table class="display" id="datatable">
 			<thead>
 				<tr>
-					<th>Id</th>
-					<th>Pasajeros</th>
+					<th>ID</th>					
 					<th>Origen</th>
 					<th>Destino</th>
 					<th>Pasajeros</th>
