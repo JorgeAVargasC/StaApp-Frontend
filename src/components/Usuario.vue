@@ -1,29 +1,19 @@
 <template>
 	<div v-if="loaded" class="tabla-vuelos">
-		<table class="display" id="datatable">
-			<thead>
-				<tr>
-					<th>ID</th>					
-					<th>Nombre</th>
-					<th>Username</th>
-					<th>Email</th>
-				</tr>
-			</thead>
-			<tbody>
-				<!-- <tr v-for="dato in datosVuelos" :key="dato.id">
-					<td>{{ dato.id_vuelo }}</td>
-					<td>{{ dato.cantidadPasajeros }}</td>
-					<td>{{ dato.origen }}</td>
-					<td>{{ dato.destino }}</td>
-				</tr> -->
-				<tr>
-					<td>{{id}}</td>
-					<td>{{name}}</td>
-					<td>{{username}}</td>
-					<td>{{email}}</td>
-				</tr>
-			</tbody>
-		</table>
+		<div class="tags">
+			<b>ID</b>
+			<b>Nombre</b>
+			<b>Username</b>
+			<b>Email</b>
+		</div>
+
+		<div class="values">
+			<p>{{ id }}</p>
+			<p>{{ name }}</p>
+			<p>{{ username }}</p>
+			<p>{{ email }}</p>
+		</div>
+
 		<!-- <h1>Información del vuelo creado</h1>
         <h2>Nombre: <span>{{name}}</span></h2>
         <h2>Cantidad Pasajeros: <span>{{cantidadPasajeros}} Pasajeros </span></h2>
@@ -70,10 +60,9 @@ export default {
 					headers: { Authorization: `Bearer ${token}` },
 				})
 				.then((result) => {
-					
 					// this.datosVuelos = JSON.parse(JSON.stringify(result.data));
 					// console.table(this.datosVuelos);
-					console.log(result.data)
+					console.log(result.data);
 					this.id = result.data.id;
 					this.name = result.data.name;
 					this.username = result.data.username;
@@ -111,56 +100,32 @@ export default {
 .tabla-vuelos {
 	margin-top: 2rem;
 	margin-bottom: 2rem;
-	width: 20rem;
-}
-
-table{
-	border-spacing: 1;
-	border-collapse: collapse;
-	background: white;
+	width: auto;
+	height: 10rem;	
+	display: flex;
+	flex-direction: row;
+	align-items: center;
 	border-radius: 0.4rem;
-	overflow: hidden;
-	width: 100%;
-	margin: 0 auto;
 }
 
-table thead tr{
+.tags{
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	border-radius: 0.4rem 0rem 0rem 0.4rem;
 	background-color: var(--primary);
-	height: 3rem;
+	height: 100%;
+	padding: 1rem;
 }
 
-table tbody tr{
+.values{
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
 	color: #808080;
-	height: 3rem;
+	border-radius: 0rem 0.4rem 0.4rem 0rem;
+	background-color: white;
+	padding: 1rem;
+	height: 100%;
 }
-
-table tbody tr:nth-of-type(even){
-	background-color: var(--gray-1);
-	
-}
-
-table tr th, table tr td{
-	width: 25%;
-	text-align: center;
-}
-
-table tr th{
-	padding-left: 1rem;
-}
-
-table tr td{
-	padding-left: 1rem;
-}
-
-table tr th:last-of-type{
-	padding-right: 1rem;
-}
-
-table tr td:last-of-type{
-	padding-right: 1rem;
-}
-
-
-
-
 </style>

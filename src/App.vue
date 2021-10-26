@@ -210,12 +210,17 @@ body {
 
 .header nav {
 	display: flex;
-	flex-direction: column;
+	flex-direction: row;
 	align-items: center;
 }
 
 .header nav button {
 	margin-bottom: 1rem;
+	margin-left: 1rem;
+}
+
+.header nav button:first-of-type{
+	margin-left: 0;
 }
 
 .footer {
