@@ -42,7 +42,11 @@ export default {
 				})
 				.catch((error) => {
 					if (error.response.status == "401")
-						alert("ERROR 401: Credenciales Incorrectas.");
+						this.$swal({
+							icon: 'error',
+							title: 'Credenciales Incorrectas...',
+							text: 'Intentalo nuevamente!',
+						})
 				});
 		},
 	},

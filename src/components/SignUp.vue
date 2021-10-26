@@ -57,7 +57,11 @@ export default {
 				})
 				.catch((error) => {
 					console.log(error);
-					alert("ERROR: Fallo en el registro.");
+					this.$swal({
+							icon: 'error',
+							title: 'Fallo en el registro...',
+							text: error
+						})
 				});
 		},
 	},

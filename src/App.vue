@@ -66,12 +66,18 @@ export default {
 			localStorage.setItem("username", data.username);
 			localStorage.setItem("token_access", data.token_access);
 			localStorage.setItem("token_refresh", data.token_refresh);
-			alert("Autenticación Exitosa");
+			this.$swal({
+							icon: 'success',
+							title: 'Autenticacion exitosa...',
+						})
 			this.verifyAuth();
 		},
 
 		completedSignUp: function(data) {
-			alert("Registro Exitoso");
+			this.$swal({
+							icon: 'success',
+							title: 'Registro Exitoso...',
+						})
 			this.completedLogIn(data);
 		},
 
@@ -85,7 +91,10 @@ export default {
 
 		logOut: function() {
 			localStorage.clear();
-			alert("Sesión Cerrada");
+			this.$swal({
+							icon: 'success',
+							title: 'Cerrando Sesion...',
+						})
 			this.verifyAuth();
 		},
 	},
