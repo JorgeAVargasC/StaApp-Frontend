@@ -79,6 +79,7 @@ export default {
 .container_logIn_user h2{
     margin-top: 1rem;
     margin-bottom: 1rem;
+	
 }
 
 .container_logIn_user form {

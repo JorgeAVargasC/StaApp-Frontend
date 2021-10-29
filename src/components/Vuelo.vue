@@ -7,6 +7,7 @@
 					<th>Origen</th>
 					<th>Destino</th>
 					<th>Pasajeros</th>
+					<th>Editar</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -21,9 +22,26 @@
 					<td>{{origen}}</td>
 					<td>{{destino}}</td>
 					<td>{{cantidadPasajeros}}</td>
+					<td><button class="btn btn-secondary" @click="showModal = true">Editar</button></td>
 				</tr>
 			</tbody>
 		</table>
+
+		<div class="modal-overlay" v-if="showModal"></div>
+
+		<div class="modal" v-if="showModal">
+			<div class="edit_data">
+				<div class="container_edit_data">
+						<h2>Actualizar Vuelo</h2>
+						<form v-on:submit.prevent="actualizarVuelo">
+							<input class="form-input" type="text" v-model="origen" placeholder="Origen" />
+							<input class="form-input" type="text" v-model="destino" placeholder="Destino" />
+							<input class="form-input" type="number" v-model="cantidadPasajeros" placeholder="CantidadPasajeros" />
+							<button class="btn btn-secondary" type="submit">Enviar</button>
+						</form>
+				</div>
+			</div>
+		</div>
 		<!-- <h1>Información del vuelo creado</h1>
         <h2>Nombre: <span>{{name}}</span></h2>
         <h2>Cantidad Pasajeros: <span>{{cantidadPasajeros}} Pasajeros </span></h2>
@@ -34,7 +52,6 @@
 <script>
 import jwt_decode from "jwt-decode";
 import axios from "axios";
-import $ from "jquery";
 
 export default {
 	name: "Vuelo",
@@ -46,11 +63,13 @@ export default {
 			destino: "",
 			cantidadPasajeros: 0,
 			loaded: false,
+			showModal:false,
 			// datosVuelos: [],
 		};
 	},
 
 	methods: {
+
 		getData: async function() {
 			if (
 				localStorage.getItem("token_access") === null ||
@@ -62,10 +81,14 @@ export default {
 
 			await this.verifyToken();
 
+		},
+
+		cargarDatos: async function() {
+
 			let token = localStorage.getItem("token_access");
 			let userId = jwt_decode(token).user_id.toString();
 
-			axios
+			return axios
 				.get(`https://mision-tic-sta-db.herokuapp.com/user/${userId}/`, {
 					headers: { Authorization: `Bearer ${token}` },
 				})
@@ -83,6 +106,14 @@ export default {
 				.catch(() => {
 					this.$emit("logOut");
 				});
+		},
+
+		actualizarVuelo: async function(){
+			
+			let token = localStorage.getItem("token_access");
+			let userId = jwt_decode(token).user_id.toString();
+			this.showModal = false;
+			console.log("Hola Mundo")
 		},
 
 		verifyToken: function() {
@@ -103,6 +134,7 @@ export default {
 
 	created: async function() {
 		this.getData();
+		this.cargarDatos();
 	},
 };
 </script>
@@ -161,6 +193,62 @@ table tr td:last-of-type{
 }
 
 
+.modal-overlay{
+	position: absolute;
+	top:0;
+	left:0;
+	bottom: 0;
+	right: 0;
+	z-index: 100;
+	background: rgba(0, 0, 0, 0.4);
+}
 
+.modal{
+	position: fixed;
+	top:50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+	background: #fff;
+	padding: 20px;
+	border-radius:15px;
+	z-index: 101;
+}
 
+.edit_data {
+	width: 18rem;
+    border-radius: 0.4rem;
+	margin-top: 1rem;
+	margin-bottom: 1rem;
+	
+}
+
+.container_edit_data {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.container_edit_data h2{
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+	color:#3c2d71;
+}
+
+.container_edit_data form {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.container_edit_data form input{
+    background-color: rgba(0, 0, 0, 0.397);
+	margin-bottom: 1rem;
+	width: 100%;
+}
+
+.container_edit_data form button{
+    margin-bottom: 1rem;
+	width: 60%;
+}
 </style>
