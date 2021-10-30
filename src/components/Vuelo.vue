@@ -3,9 +3,14 @@
 		<table class="display" id="datatable">
 			<thead>
 				<tr>
-					<th>ID</th>					
+					<th>ID</th>			
+					<th>Piloto</th>		
 					<th>Origen</th>
 					<th>Destino</th>
+					<th>Fecha Salida</th>
+					<th>Fecha Llegada</th>
+					<th>Hora Salida</th>
+					<th>Hora Llegada</th>
 					<th>Pasajeros</th>
 					<th>Editar</th>
 				</tr>
@@ -19,8 +24,13 @@
 				</tr> -->
 				<tr>
 					<td>{{id_vuelo}}</td>
+					<td>{{nombrePiloto}}</td>
 					<td>{{origen}}</td>
 					<td>{{destino}}</td>
+					<td>{{fechaSalida}}</td>
+					<td>{{fechaLlegada}}</td>
+					<td>{{horaSalida}}</td>
+					<td>{{horaLlegada}}</td>
 					<td>{{cantidadPasajeros}}</td>
 					<td><button class="btn btn-secondary" @click="showModal = true">Editar</button></td>
 				</tr>
@@ -34,9 +44,14 @@
 				<div class="container_edit_data">
 						<h2>Actualizar Vuelo</h2>
 						<form v-on:submit.prevent="actualizarVuelo">
-							<input class="form-input" type="text" v-model="origen" placeholder="Origen" />
-							<input class="form-input" type="text" v-model="destino" placeholder="Destino" />
-							<input class="form-input" type="number" v-model="cantidadPasajeros" placeholder="CantidadPasajeros" />
+							<input class="form-input" type="text" v-model="nombrePiloto" placeholder="Nombre Piloto" id="nombrePiloto" />
+							<input class="form-input" type="text" v-model="origen" placeholder="Origen" id="origen"/>
+							<input class="form-input" type="text" v-model="destino" placeholder="Destino" id="destino"/>
+							<input class="form-input" type="date" v-model="fechaSalida" placeholder="Fecha Salida" id="fechaSalida"/>
+							<input class="form-input" type="date" v-model="fechaLlegada" placeholder="Fecha Salida" id="fechaLlegada"/>
+							<input class="form-input" type="time" v-model="horaSalida" placeholder="Hora Salida" id="horaSalida"/>
+							<input class="form-input" type="time" v-model="horaLlegada" placeholder="Hora Llegada" id="horaLlegada"/>
+							<input class="form-input" type="number" v-model.number="cantidadPasajeros" placeholder="CantidadPasajeros" id="cantidadPasajeros"/>
 							<button class="btn btn-secondary" type="submit">Enviar</button>
 						</form>
 				</div>
@@ -58,13 +73,20 @@ export default {
 
 	data: function() {
 		return {
-			id_vuelo: "",
+		loaded: false,
+		showModal:false,
+		id_vuelo: "",
+		vuelo: {
+			nombrePiloto:"",
 			origen: "",
 			destino: "",
+			fechaSalida:"",
+			fechaLlegada:"",
+			horaSalida:"",
+			horaLlegada:"",
 			cantidadPasajeros: 0,
-			loaded: false,
-			showModal:false,
 			// datosVuelos: [],
+			},
 		};
 	},
 
@@ -98,8 +120,13 @@ export default {
 					// console.table(this.datosVuelos);
 					console.log(result.data)
 					this.id_vuelo = result.data.vuelo.id_vuelo;
+					this.nombrePiloto = result.data.vuelo.nombrePiloto;
 					this.origen = result.data.vuelo.origen;
 					this.destino = result.data.vuelo.destino;
+					this.fechaSalida = result.data.vuelo.fechaSalida;
+					this.fechaLlegada = result.data.vuelo.fechaLlegada;
+					this.horaSalida = result.data.vuelo.horaSalida;
+					this.horaLlegada = result.data.vuelo.horaLlegada
 					this.cantidadPasajeros = result.data.vuelo.cantidadPasajeros;
 					this.loaded = true;
 				})
@@ -110,10 +137,43 @@ export default {
 
 		actualizarVuelo: async function(){
 			
-			let token = localStorage.getItem("token_access");
-			let userId = jwt_decode(token).user_id.toString();
+			const token = localStorage.getItem("token_access");
+			const userId = jwt_decode(token).user_id.toString();
 			this.showModal = false;
-			console.log("Hola Mundo")
+
+			const vuelo = {
+
+				nombrePiloto: document.getElementById('nombrePiloto').value,
+				origen : document.getElementById('origen').value,
+				destino : document.getElementById('destino').value,
+				fechaSalida : document.getElementById('fechaSalida').value,
+				fechaLlegada : document.getElementById('fechaLlegada').value,
+				horaSalida : document.getElementById('horaSalida').value,
+				horaLlegada : document.getElementById('horaLlegada').value,
+				cantidadPasajeros : document.getElementById('cantidadPasajeros').value,
+			}
+
+			console.log(vuelo)
+
+			return axios
+				.put(
+					`http://mision-tic-sta-db.herokuapp.com/vuelo/update/${userId}/${this.id_vuelo}/`,
+					vuelo,
+					{ headers: { Authorization: `Bearer ${token}` },
+
+				})
+				.then((result) =>{
+					console.log(result)
+					this.$swal({
+							icon: 'success',
+							title: 'Vuelo Actualizado con exito',
+						})
+					
+				}).catch((error)=>{
+					console.log(error)
+					
+				})
+			
 		},
 
 		verifyToken: function() {
